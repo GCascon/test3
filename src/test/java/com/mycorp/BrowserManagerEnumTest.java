@@ -13,6 +13,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.Response;
 import com.mycorp.driver.DriverFactory;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.EdgeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
+import io.github.bonigarcia.wdm.OperaDriverManager;
+import io.github.bonigarcia.wdm.PhantomJsDriverManager;
 import io.github.bonigarcia.wdm.VoidDriverManager;
 
 
@@ -61,6 +66,84 @@ public class BrowserManagerEnumTest {
         Assert.assertTrue( of.getBrowserManager( "1" ) instanceof ChromeDriverManager );
         Assert.assertTrue( of.getDriver(spyMyDriver) instanceof RemoteWebDriver );
         
+    }
+    
+    @Test
+    public void shouldCheckOfEdge() throws Exception {
+    	DriverFactory myDriver = new DriverFactory();
+    	DriverFactory spyMyDriver = Mockito.spy(myDriver);
+        Mockito.doReturn(generateRemoteWebDriver()).when(spyMyDriver).getEdgeDriverInstance();
+        
+    	BrowserManagerEnum of = BrowserManagerEnum.of( "edge" );
+        Assert.assertEquals( BrowserManagerEnum.EDGE, of );
+        Assert.assertTrue( of.getBrowserManager() instanceof EdgeDriverManager );
+        Assert.assertTrue( of.getBrowserManager( "1" ) instanceof EdgeDriverManager );
+        Assert.assertTrue( of.getDriver(spyMyDriver) instanceof RemoteWebDriver );
+    }
+    
+    @Test
+    public void shouldCheckOfFirefox() throws Exception {
+    	DriverFactory myDriver = new DriverFactory();
+    	DriverFactory spyMyDriver = Mockito.spy(myDriver);
+        Mockito.doReturn(generateRemoteWebDriver()).when(spyMyDriver).getFirefoxDriverInstance();
+        
+    	BrowserManagerEnum of = BrowserManagerEnum.of( "firefox" );
+    	Assert.assertEquals( BrowserManagerEnum.FIREFOX, of );
+        Assert.assertTrue( of.getBrowserManager() instanceof FirefoxDriverManager );
+        Assert.assertTrue( of.getBrowserManager( "1" ) instanceof FirefoxDriverManager );
+        Assert.assertTrue( of.getDriver(spyMyDriver) instanceof RemoteWebDriver );
+    }
+    
+    @Test
+    public void shouldCheckOfIE() throws Exception {
+    	DriverFactory myDriver = new DriverFactory();
+    	DriverFactory spyMyDriver = Mockito.spy(myDriver);
+        Mockito.doReturn(generateRemoteWebDriver()).when(spyMyDriver).getInternetExplorerDriverInstance();
+        
+    	BrowserManagerEnum of = BrowserManagerEnum.of( "ie" );
+        Assert.assertEquals( BrowserManagerEnum.IE, of );
+        Assert.assertTrue( of.getBrowserManager() instanceof InternetExplorerDriverManager );
+        Assert.assertTrue( of.getBrowserManager( "1" ) instanceof InternetExplorerDriverManager );
+        Assert.assertTrue( of.getDriver(spyMyDriver) instanceof RemoteWebDriver );
+    }
+    
+    @Test
+    public void shouldCheckOfMarionette() throws Exception {
+    	DriverFactory myDriver = new DriverFactory();
+    	DriverFactory spyMyDriver = Mockito.spy(myDriver);
+        Mockito.doReturn(generateRemoteWebDriver()).when(spyMyDriver).getFirefoxDriverInstance();
+        
+    	BrowserManagerEnum of = BrowserManagerEnum.of( "marionette" );
+        Assert.assertEquals( BrowserManagerEnum.MARIONETTE, of );
+        Assert.assertTrue( of.getBrowserManager() instanceof FirefoxDriverManager );
+        Assert.assertTrue( of.getBrowserManager( "1" ) instanceof FirefoxDriverManager );
+        Assert.assertTrue( of.getDriver(spyMyDriver) instanceof RemoteWebDriver );
+    }
+    
+    @Test
+    public void shouldCheckOfOpera() throws Exception {
+    	DriverFactory myDriver = new DriverFactory();
+    	DriverFactory spyMyDriver = Mockito.spy(myDriver);
+        Mockito.doReturn(generateRemoteWebDriver()).when(spyMyDriver).getOperaDriverInstance();
+        
+    	BrowserManagerEnum of = BrowserManagerEnum.of( "opera" );
+        Assert.assertEquals( BrowserManagerEnum.OPERA, of );
+        Assert.assertTrue( of.getBrowserManager() instanceof OperaDriverManager );
+        Assert.assertTrue( of.getBrowserManager( "1" ) instanceof OperaDriverManager );
+        Assert.assertTrue( of.getDriver(spyMyDriver) instanceof RemoteWebDriver );
+    }
+    
+    @Test
+    public void shouldCheckOfPhantomjs() throws Exception {
+    	DriverFactory myDriver = new DriverFactory();
+    	DriverFactory spyMyDriver = Mockito.spy(myDriver);
+        Mockito.doReturn(generateRemoteWebDriver()).when(spyMyDriver).getPhantomJSDriverInstance();
+        
+    	BrowserManagerEnum of = BrowserManagerEnum.of( "phantomjs" );
+        Assert.assertEquals( BrowserManagerEnum.PHANTOMJS, of );
+        Assert.assertTrue( of.getBrowserManager() instanceof PhantomJsDriverManager );
+        Assert.assertTrue( of.getBrowserManager( "1" ) instanceof PhantomJsDriverManager );
+        Assert.assertTrue( of.getDriver(spyMyDriver) instanceof RemoteWebDriver );
     }
     
     private RemoteWebDriver generateRemoteWebDriver() {
