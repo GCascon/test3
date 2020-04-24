@@ -6,7 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -16,6 +15,8 @@ import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.Response;
+
+import com.mycorp.driver.DriverFactory;
 
 import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
@@ -71,15 +72,15 @@ public enum BrowserManagerEnum {
         return getBrowserManager().version( version );
     }
 
-    public WebDriver getDriver() {
+    public WebDriver getDriver(DriverFactory myDriver) {
         switch( this ) {
-        case CHROME:     return new ChromeDriver();
-        case FIREFOX:    return new FirefoxDriver();
-        case EDGE:       return new EdgeDriver();
-        case IE:         return new InternetExplorerDriver();
-        case MARIONETTE: return new FirefoxDriver();
-        case OPERA:      return new OperaDriver();
-        case PHANTOMJS:  return new PhantomJSDriver();
+        case CHROME:     return myDriver.getChromeDriverInstance();
+        case FIREFOX:    return myDriver.getFirefoxDriverInstance();
+        case EDGE:       return myDriver.getEdgeDriverInstance();
+        case IE:         return myDriver.getInternetExplorerDriverInstance();
+        case MARIONETTE: return myDriver.getFirefoxDriverInstance();
+        case OPERA:      return myDriver.getOperaDriverInstance();
+        case PHANTOMJS:  return myDriver.getPhantomJSDriverInstance();
         case NONE: default:
             final DesiredCapabilities dc = new DesiredCapabilities( BrowserType.MOCK, "mock-version", Platform.ANY );
             final RemoteWebDriver mock = new RemoteWebDriver( dc ) {
